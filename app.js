@@ -22,6 +22,9 @@ window.addEventListener('DOMContentLoaded', function () {
     console.log(raisiChar);
     console.log(raisi);
     donkey = new Crawler(10, 20, 'grey', 25, 25);
+    // donkey1 = new Crawler(10, 20, 'grey', 25, 25);
+    // donkey2 = new Crawler(10, 20, 'grey', 25, 25);
+
 
     let runGame = this.setInterval(gameLoop, 60);
 })
@@ -120,6 +123,9 @@ function gameLoop() {
     // }
     // render the donkey
     donkey.render();
+    khameneiChar.render();
+    raisiChar.render();
+
 
 }
 
