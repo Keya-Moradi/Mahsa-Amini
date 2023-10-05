@@ -1,5 +1,6 @@
 // GLOBAL DOM / VARIABLES
-const mushroom = document.querySelector('#mush')
+const tree = document.querySelector('#tree')
+const badGuy = document.querySelector('#bad-guy')
 const movement = document.querySelector('#movement');
 const game = document.querySelector('#game');
 const score = document.querySelector('#score');
@@ -8,7 +9,7 @@ const ctx = game.getContext('2d');
 let shrek;
 let donkey;
 
-console.log(mushroom, movement, game, score, status);
+console.log(tree, badGuy, movement, game, score, status);
 // ====================== PAINT INTIAL SCREEN ======================= //
 // EVENT LISTENERS
 window.addEventListener('DOMContentLoaded', function () {
