@@ -1,20 +1,26 @@
 // GLOBAL DOM / VARIABLES
-const tree = document.querySelector('#tree')
-const badGuy = document.querySelector('#bad-guy')
+const khamenei = document.querySelector('#khamenei')
+const raisi = document.querySelector('#raisi')
 const movement = document.querySelector('#movement');
 const game = document.querySelector('#game');
 const score = document.querySelector('#score');
 const status = document.querySelector('#status');
 const ctx = game.getContext('2d');
+
 let shrek;
 let donkey;
+let khameneiChar;
+let raisiChar;
 
-console.log(tree, badGuy, movement, game, score, status);
 // ====================== PAINT INTIAL SCREEN ======================= //
 // EVENT LISTENERS
 window.addEventListener('DOMContentLoaded', function () {
     // Load donkey and shrek on page
     shrek = new Crawler(100, 200, '#bada55', 50, 100);
+    khameneiChar = new Enemy(khamenei, 50, 50, 'green', 100, 100);
+    raisiChar = new Enemy(raisi, 150, 150, 'green', 100, 100);
+    console.log(raisiChar);
+    console.log(raisi);
     donkey = new Crawler(10, 20, 'grey', 25, 25);
 
     let runGame = this.setInterval(gameLoop, 60);
@@ -46,6 +52,16 @@ class Crawler {
     }
 }
 
+class Enemy extends Crawler {
+    constructor(image, ...args) {
+        super(...args);
+        this.image = image;
+        this.render = function () {
+            ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
+        }
+    }
+}
+
 // let testCrawler = new Crawler(150, 20, 'cyan', 100, 100);
 // testCrawler.render();
 
@@ -63,7 +79,6 @@ function movementHandler(e) {
         donkey.x + 10 <= game.width - donkey.width ? (donkey.x += 10) : null;
     }
 }
-
 function shrekAIMovement() {
 }
 
