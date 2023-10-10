@@ -1,150 +1,198 @@
-// GLOBAL DOM / VARIABLES
-const khamenei = document.querySelector('#khamenei')
-const raisi = document.querySelector('#raisi')
-const movement = document.querySelector('#movement');
-const game = document.querySelector('#game');
-const score = document.querySelector('#score');
-const status = document.querySelector('#status');
-const ctx = game.getContext('2d');
-
-let shrek;
-let donkey;
-let khameneiChar;
-let raisiChar;
-
-// ====================== PAINT INTIAL SCREEN ======================= //
-// EVENT LISTENERS
-window.addEventListener('DOMContentLoaded', function () {
-    // Load donkey and shrek on page
-    shrek = new Crawler(100, 200, '#bada55', 50, 100);
-    khameneiChar = new Enemy(khamenei, 50, 50, 'green', 100, 100);
-    raisiChar = new Enemy(raisi, 150, 150, 'green', 100, 100);
-    console.log(raisiChar);
-    console.log(raisi);
-    donkey = new Crawler(10, 20, 'grey', 25, 25);
-    // donkey1 = new Crawler(10, 20, 'grey', 25, 25);
-    // donkey2 = new Crawler(10, 20, 'grey', 25, 25);
 
 
-    let runGame = this.setInterval(gameLoop, 60);
-})
+const canvas = document.querySelector('canvas')
 
-document.addEventListener('keydown', movementHandler);
+const c = canvas.getContext('2d')
 
-// ====================== SETUP FOR CANVAS RENDERING ======================= //
-// 2D rendering context for canvas element
-// This is used for drawing shapes, text, images, etc.
-game.setAttribute('height', getComputedStyle(game)['height']);
-game.setAttribute('width', getComputedStyle(game)['width']);
+canvas.width = window.innerWidth
+canvas.height = window.innerHeight
 
+console.log(c);
+//c stands for context object
+// setting gravity
+const gravity = .5
+class Player {
+    constructor() {
+        this.position = {
+            x: 100,
+            y: 100
+        }
+        this.velocity = {
+            x: 0,
+            y: 0
+        }
+        this.width = 30
+        this.height = 30
+    }
+    draw() {
+        c.fillStyle = 'red'
+        c.fillRect(this.position.x, this.position.y, this.width, this.height)
 
-// ====================== ENTITIES ======================= //
-class Crawler {
-    constructor(x, y, color, width, height) {
-        this.x = x;
-        this.y = y;
-        this.color = color;
-        this.height = height;
-        this.width = width;
-        this.alive = true;
+    }
+    update() {
+        // calling function before moving its position
+        this.draw()
+        this.position.x += this.velocity.x
+        this.position.y += this.velocity.y
+        // only add velocity if a certain condition exists > monitoring the bottom of our player + over time
+        if (this.position.y + this.height + this.velocity.y <= canvas.height)
+            // add gravity to the player's this.y and excvellerate it over time
+            this.velocity.y += gravity
+        else this.velocity.y = 0
+    }
 
-        this.render = function () {
-            ctx.fillStyle = this.color; // change the color of the context (ctx)
-            ctx.fillRect(this.x, this.y, this.width, this.height);
-        };
+}
+class Platform {
+    constructor({ x, y }) {
+        this.position = {
+            x: x,
+            y: y
+        }
+        this.width = 200
+        this.height = 20
+    }
+    draw() {
+        c.fillStyle = 'blue'
+        c.fillRect(this.position.x, this.position.y, this.width, this.height)
+    }
+}
+const player = new Player()
+const platforms = [new Platform({
+    x: 200, y: 100
+}), new Platform({
+    x: 500, y: 200
+})]
+
+const keys = {
+    right: {
+        pressed: false
+    },
+    left: {
+        pressed: false
     }
 }
 
-class Enemy extends Crawler {
-    constructor(image, ...args) {
-        super(...args);
-        this.image = image;
-        this.render = function () {
-            ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
+let scrollOffset = 0
+
+function animate() {
+    // recursive loop to change player properties over time
+    requestAnimationFrame(animate)
+    // velocity of 1 makes it slow 
+    // clear canvas and take everything off of it and call playe's draw function and maintain its shape
+    // call position and clear the width
+    c.clearRect(0, 0, canvas.width, canvas.height)
+    player.update()
+    platforms.forEach((platform) => {
+        platform.draw()
+    })
+
+    if (keys.right.pressed && player.position.x < 400) {
+        player.velocity.x = 5
+    } else if (keys.left.pressed && player.position.x > 100) {
+        player.velocity.x = -5
+    } else {
+        player.velocity.x = 0
+
+        if (keys.right.pressed) {
+            scrollOffset += 5
+            platforms.forEach((platform) => {
+                platform.position.x -= 5
+            })
+
+        } else if (keys.left.pressed) {
+            scrollOffset -= 5
+            platforms.forEach((platform) => {
+                platform.position.x += 5
+            })
+
         }
     }
-}
 
-// let testCrawler = new Crawler(150, 20, 'cyan', 100, 100);
-// testCrawler.render();
+    // console.log(scrollOffset)
 
-// KEYBOARD LOGIC
-function movementHandler(e) {
-    console.log('movement', e.key);
-    // make a conditional for each direction 
-    if (e.key === 'w' || e.key === 'ArrowUp') {
-        donkey.y - 10 >= 0 ? (donkey.y -= 10) : null;
-    } else if (e.key === 's' || e.key === 'ArrowDown') {
-        donkey.y + 10 <= game.height - donkey.height ? (donkey.y += 10) : null;
-    } else if (e.key === 'a' || e.key === 'ArrowLeft') {
-        donkey.x - 10 >= 10 ? (donkey.x -= 10) : null;
-    } else if (e.key === 'd' || e.key === 'ArrowRight') {
-        donkey.x + 10 <= game.width - donkey.width ? (donkey.x += 10) : null;
+    // platform collision detection 
+    platforms.forEach((platform) => {
+        if (player.position.y + player.height <= platform.position.y && player.position.y + player.height + player.velocity.y >= platform.position.y && player.position.x + player.width >= platform.position.x && player.position.x <= platform.position.x + platform.width) {
+            player.velocity.y = 0
+        }
+    })
+    if (scrollOffset > 2000) {
+        console.log('you win')
     }
 }
-function shrekAIMovement() {
-}
 
-// first move the shrek up and then move to the left and then down and repeat
+animate()
 
-// ====================== HELPER FUNCTIONS ======================= //
-function addNewShrek() {
-    shrek.alive = false;
-    // use a set timeout function to create a new shrek after 1 second (100 mili seconds)
-    setTimeout(function () {
-        // random x and y position
-        let randomX = Math.floor(Math.random() * game.width - 40);
-        let randomY = Math.floor(Math.random() * game.height - 80);
-        // random color
-        const colors = ['pink', 'purple', 'red', 'cyan', 'magenta', 'teal', 'green']
-            ;
-        let randomIndex = Math.floor(Math.random() * colors.length - 1);
-        let randomColor = colors[randomIndex]; // we have our random color 
-        //create a new shrek
-        shrek = new Crawler(randomX, randomY, randomColor, 100, 100);
-    }, 1000);
-    return true;
-}
+// Adding event listeners for movement 
 
-// ====================== GAME PROCESSES ======================= //
-function gameLoop() {
-    // clear the canvas
-    ctx.clearRect(0, 0, game.width, game.height);
-
-    // display x and y coordinates for our donkey
-    movement.textContent = `X: ${donkey.x}\nY: ${donkey.y}`;
-
-    // check to see  if shrek is alive
-    // if (shrek.alive) {
-    //     // render the shrek
-    //     shrek.render();
-    //     // check for collision beween donkey and shrek
-    //     let hit = detectHit(donkey, shrek); // checks if there is a hit between those two and returns boolian
-    // }
-    // render the donkey
-    donkey.render();
-    khameneiChar.render();
-    raisiChar.render();
-
-
-}
-
-// ====================== COLLISION DETECTION ======================= //
-function detectHit(player, app) {
-    let hitTest = (
-        player.y + player.height > app.y &&
-        player.y < app.y + app.height &&
-        player.x + player.width > app.x &&
-        player.x < app.x + app.width
-    );
-
-    if (hitTest) {
-        // add 100 points to the current score
-        let newScore = Number(score.textContent) + 100;
-        score.textContent = newScore;
-        // return a new shrek with the addNewShrek function 
-        return addNewShrek();
-    } else {
-        return false;
+document.addEventListener('keydown', (event) => {
+    console.log(event.key)
+    switch (event.key) {
+        case 'a':
+            console.log('left')
+            keys.left.pressed = true
+            break
+        case 's':
+            console.log('down')
+            break
+        case 'd':
+            console.log('right')
+            keys.right.pressed = true
+            break
+        case 'w':
+            console.log('up')
+            player.velocity.y -= 20
+            break
+        case 'ArrowLeft':
+            console.log('left')
+            keys.left.pressed = true
+            break
+        case 'ArrowDown':
+            console.log('down')
+            break
+        case 'ArrowRight':
+            console.log('right')
+            keys.right.pressed = true
+            break
+        case 'ArrowUp':
+            console.log('up')
+            player.velocity.y -= 20
+            break
     }
-}
+})
+
+document.addEventListener('keyup', (event) => {
+    console.log(event.key)
+    switch (event.key) {
+        case 'a':
+            console.log('left')
+            keys.left.pressed = false
+            break
+        case 's':
+            console.log('down')
+            break
+        case 'd':
+            console.log('right')
+            keys.right.pressed = false
+            break
+        case 'w':
+            console.log('up')
+            player.velocity.y -= 20
+            break
+        case 'ArrowLeft':
+            console.log('left')
+            keys.left.pressed = false
+            break
+        case 'ArrowDown':
+            console.log('down')
+            break
+        case 'ArrowRight':
+            console.log('right')
+            keys.right.pressed = false
+            break
+        case 'ArrowUp':
+            console.log('up')
+            player.velocity.y -= 20
+            break
+    }
+})
