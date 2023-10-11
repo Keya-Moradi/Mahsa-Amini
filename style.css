@@ -2,7 +2,15 @@ body {
     margin: 0;
     background-color: rgb(153, 59, 240);
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 100vh;
+    align-content: space-around;
+}
+
+h1 {
+    text-align: center;
+    font-size: 50px;
+    margin: 100px 0px 0px 0px;
 }

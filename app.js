@@ -11,6 +11,7 @@ console.log(c);
 //c stands for context object
 // setting gravity
 const gravity = .5
+
 class Player {
     constructor() {
         this.position = {
@@ -42,7 +43,7 @@ class Player {
 
 }
 class Platform {
-    constructor({ x, y }) {
+    constructor({ x, y, platform }) {
         this.position = {
             x: x,
             y: y
@@ -84,7 +85,7 @@ function init() {
         x: 700, y: 500
     })]
     scrollOffset = 0
-    alert('you were captured by the IRGC, please try again!')
+
 }
 function animate() {
     // recursive loop to change player properties over time
@@ -137,7 +138,7 @@ function animate() {
 
     // lose condition
     if (mahsa.position.y > canvas.height) {
-
+        alert('you were captured by the IRGC, please try again!')
         init()
     }
 }
