@@ -1,5 +1,4 @@
 
-
 const canvas = document.querySelector('canvas')
 
 const c = canvas.getContext('2d')
@@ -56,7 +55,7 @@ class Platform {
         c.fillRect(this.position.x, this.position.y, this.width, this.height)
     }
 }
-const player = new Player()
+const mahsa = new Player()
 const platforms = [new Platform({
     x: 200, y: 100
 }), new Platform({
@@ -81,17 +80,17 @@ function animate() {
     // clear canvas and take everything off of it and call playe's draw function and maintain its shape
     // call position and clear the width
     c.clearRect(0, 0, canvas.width, canvas.height)
-    player.update()
+    mahsa.update()
     platforms.forEach((platform) => {
         platform.draw()
     })
 
-    if (keys.right.pressed && player.position.x < 400) {
-        player.velocity.x = 5
-    } else if (keys.left.pressed && player.position.x > 100) {
-        player.velocity.x = -5
+    if (keys.right.pressed && mahsa.position.x < 400) {
+        mahsa.velocity.x = 5
+    } else if (keys.left.pressed && mahsa.position.x > 100) {
+        mahsa.velocity.x = -5
     } else {
-        player.velocity.x = 0
+        mahsa.velocity.x = 0
 
         if (keys.right.pressed) {
             scrollOffset += 5
@@ -112,12 +111,12 @@ function animate() {
 
     // platform collision detection 
     platforms.forEach((platform) => {
-        if (player.position.y + player.height <= platform.position.y && player.position.y + player.height + player.velocity.y >= platform.position.y && player.position.x + player.width >= platform.position.x && player.position.x <= platform.position.x + platform.width) {
-            player.velocity.y = 0
+        if (mahsa.position.y + mahsa.height <= platform.position.y && mahsa.position.y + mahsa.height + mahsa.velocity.y >= platform.position.y && mahsa.position.x + mahsa.width >= platform.position.x && mahsa.position.x <= platform.position.x + platform.width) {
+            mahsa.velocity.y = 0
         }
     })
-    if (scrollOffset > 2000) {
-        console.log('you win')
+    if (scrollOffset > 500) {
+        console.log('Congratulations! You have defeated the IRGC!')
     }
 }
 
@@ -141,7 +140,7 @@ document.addEventListener('keydown', (event) => {
             break
         case 'w':
             console.log('up')
-            player.velocity.y -= 20
+            mahsa.velocity.y -= 20
             break
         case 'ArrowLeft':
             console.log('left')
@@ -156,7 +155,7 @@ document.addEventListener('keydown', (event) => {
             break
         case 'ArrowUp':
             console.log('up')
-            player.velocity.y -= 20
+            mahsa.velocity.y -= 20
             break
     }
 })
@@ -177,7 +176,7 @@ document.addEventListener('keyup', (event) => {
             break
         case 'w':
             console.log('up')
-            player.velocity.y -= 20
+            mahsa.velocity.y -= 20
             break
         case 'ArrowLeft':
             console.log('left')
@@ -192,7 +191,7 @@ document.addEventListener('keyup', (event) => {
             break
         case 'ArrowUp':
             console.log('up')
-            player.velocity.y -= 20
+            mahsa.velocity.y -= 20
             break
     }
 })
