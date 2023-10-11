@@ -57,9 +57,9 @@ class Platform {
 }
 const mahsa = new Player()
 const platforms = [new Platform({
-    x: 200, y: 100
+    x: -1, y: 470
 }), new Platform({
-    x: 500, y: 150
+    x: 500, y: 600
 })]
 
 const keys = {
@@ -76,6 +76,7 @@ let scrollOffset = 0
 function animate() {
     // recursive loop to change player properties over time
     requestAnimationFrame(animate)
+    c.fillStyle = 'white'
     // velocity of 1 makes it slow 
     // clear canvas and take everything off of it and call playe's draw function and maintain its shape
     // call position and clear the width
