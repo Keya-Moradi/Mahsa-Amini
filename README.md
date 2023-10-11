@@ -1,5 +1,5 @@
 
-# Mahsa-Amini
+# 🕊️ Mahsa-Amini
 
 1. Project Setup - Done 
 2. Player creation - Done
