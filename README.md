@@ -20,17 +20,17 @@ The technical requirements are as follows:
 - JavaScript
 
 ### Wireframe
-![screenshot]()
+![]()
 
 ##
 
 ### Images of working App
  #### Desktop version
-![firstScreen]()
-![thirdScreen]()
+![]()
+![]()
  #### Mobile version
-![secondScreen]()
-![fourthScreen]()
+![]()
+![]()
 ##
 
 
