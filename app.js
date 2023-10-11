@@ -3,6 +3,7 @@ const canvas = document.querySelector('canvas')
 const c = canvas.getContext('2d')
 const platform = document.querySelector('#platform');
 
+
 canvas.width = window.innerWidth
 canvas.height = window.innerHeight
 
@@ -83,6 +84,7 @@ function init() {
         x: 700, y: 500
     })]
     scrollOffset = 0
+    alert('you were captured by the IRGC, please try again!')
 }
 function animate() {
     // recursive loop to change player properties over time
@@ -130,13 +132,13 @@ function animate() {
 
     // win condition 
     if (scrollOffset > 500) {
-        console.log('Congratulations! You have defeated the IRGC!')
+        alert('Congratulations! You have defeated the IRGC!')
     }
 
     // lose condition
     if (mahsa.position.y > canvas.height) {
+
         init()
-        console.log('you were captured by the IRGC, please try again!')
     }
 }
 
