@@ -1,7 +1,7 @@
 
 const canvas = document.querySelector('canvas')
-
 const c = canvas.getContext('2d')
+const platform = document.querySelector('#platform');
 
 canvas.width = window.innerWidth
 canvas.height = window.innerHeight
