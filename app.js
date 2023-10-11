@@ -54,8 +54,8 @@ class Platform {
         c.fillRect(this.position.x, this.position.y, this.width, this.height)
     }
 }
-const mahsa = new Player()
-const platforms = [new Platform({
+let mahsa = new Player()
+let platforms = [new Platform({
     x: 50, y: 470
 }), new Platform({
     x: 350, y: 600
@@ -73,7 +73,17 @@ const keys = {
 }
 
 let scrollOffset = 0
-
+function init() {
+    mahsa = new Player()
+    platforms = [new Platform({
+        x: 50, y: 470
+    }), new Platform({
+        x: 350, y: 600
+    }), new Platform({
+        x: 700, y: 500
+    })]
+    scrollOffset = 0
+}
 function animate() {
     // recursive loop to change player properties over time
     requestAnimationFrame(animate)
@@ -125,6 +135,7 @@ function animate() {
 
     // lose condition
     if (mahsa.position.y > canvas.height) {
+        init()
         console.log('you were captured by the IRGC, please try again!')
     }
 }
@@ -134,6 +145,7 @@ animate()
 // Adding event listeners for movement 
 
 document.addEventListener('keydown', (event) => {
+
     console.log(event.key)
     switch (event.key) {
         case 'a':

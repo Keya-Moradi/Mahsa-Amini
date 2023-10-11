@@ -10,6 +10,6 @@
 7. Win scenario - Done
 8. Image platforms
 9. Parlax scroll
-10. Death pits 
+10. Death pits - Done
 11. Level creation 
 12. Fine-tuning
