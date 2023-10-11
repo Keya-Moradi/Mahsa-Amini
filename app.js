@@ -57,9 +57,11 @@ class Platform {
 }
 const mahsa = new Player()
 const platforms = [new Platform({
-    x: -1, y: 470
+    x: 50, y: 470
 }), new Platform({
-    x: 500, y: 600
+    x: 350, y: 600
+}), new Platform({
+    x: 550, y: 500
 })]
 
 const keys = {
