@@ -117,8 +117,15 @@ function animate() {
             mahsa.velocity.y = 0
         }
     })
+
+    // win condition 
     if (scrollOffset > 500) {
         console.log('Congratulations! You have defeated the IRGC!')
+    }
+
+    // lose condition
+    if (mahsa.position.y > canvas.height) {
+        console.log('you were captured by the IRGC, please try again!')
     }
 }
 
