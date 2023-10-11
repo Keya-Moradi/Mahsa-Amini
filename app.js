@@ -37,7 +37,6 @@ class Player {
         if (this.position.y + this.height + this.velocity.y <= canvas.height)
             // add gravity to the player's this.y and excvellerate it over time
             this.velocity.y += gravity
-        else this.velocity.y = 0
     }
 
 }
@@ -61,7 +60,7 @@ const platforms = [new Platform({
 }), new Platform({
     x: 350, y: 600
 }), new Platform({
-    x: 550, y: 500
+    x: 700, y: 500
 })]
 
 const keys = {
