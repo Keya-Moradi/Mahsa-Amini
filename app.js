@@ -24,7 +24,7 @@ class Player {
         this.height = 30
     }
     draw() {
-        c.fillStyle = 'red'
+        c.fillStyle = 'green'
         c.fillRect(this.position.x, this.position.y, this.width, this.height)
 
     }
@@ -51,7 +51,7 @@ class Platform {
         this.height = 20
     }
     draw() {
-        c.fillStyle = 'blue'
+        c.fillStyle = 'pink'
         c.fillRect(this.position.x, this.position.y, this.width, this.height)
     }
 }
@@ -59,7 +59,7 @@ const mahsa = new Player()
 const platforms = [new Platform({
     x: 200, y: 100
 }), new Platform({
-    x: 500, y: 200
+    x: 500, y: 150
 })]
 
 const keys = {
