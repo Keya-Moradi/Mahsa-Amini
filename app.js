@@ -59,13 +59,24 @@ class Platform {
     }
 }
 let mahsa = new Player()
-let platforms = [new Platform({
-    x: 50, y: 470
-}), new Platform({
-    x: 350, y: 600
-}), new Platform({
-    x: 700, y: 500
-})]
+let platforms = [
+
+    new Platform({
+        x: 50, y: 470
+    }), new Platform({
+        x: 350, y: 600
+    }), new Platform({
+        x: 700, y: 500
+    }),
+    new Platform({
+        x: 800, y: 470
+    }), new Platform({
+        x: 900, y: 600
+    }), new Platform({
+        x: 1000, y: 500
+    })
+
+]
 
 const keys = {
     right: {
@@ -85,9 +96,16 @@ function init() {
         x: 350, y: 600
     }), new Platform({
         x: 700, y: 500
-    })]
+    }),
+    new Platform({
+        x: 800, y: 470
+    }), new Platform({
+        x: 900, y: 600
+    }), new Platform({
+        x: 1000, y: 500
+    })
+    ]
     scrollOffset = 0
-
 }
 function animate() {
     // recursive loop to change player properties over time
