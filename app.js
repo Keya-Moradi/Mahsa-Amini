@@ -1,11 +1,13 @@
 
 const canvas = document.querySelector('canvas')
+// The getContext function returns the drawing context - which is an object that has all the drawing properties and functions you use to draw on the canvas.
 const c = canvas.getContext('2d')
 const platform = document.querySelector('#platform');
 
+let finalGame = false
 
-canvas.width = window.innerWidth
-canvas.height = window.innerHeight
+canvas.width = 1300
+canvas.height = 700
 
 console.log(c);
 //c stands for context object
@@ -43,7 +45,7 @@ class Player {
 
 }
 class Platform {
-    constructor({ x, y, platform }) {
+    constructor({ x, y }) {
         this.position = {
             x: x,
             y: y
@@ -132,16 +134,22 @@ function animate() {
     })
 
     // win condition 
-    if (scrollOffset > 500) {
+    if (scrollOffset > 500 && !finalGame) {
+        finalGame = true
+        init()
         alert('Congratulations! You have defeated the IRGC!')
     }
 
     // lose condition
-    if (mahsa.position.y > canvas.height) {
-        alert('you were captured by the IRGC, please try again!')
+    if (mahsa.position.y > canvas.height && !finalGame) {
+        finalGame = true
         init()
+        alert('you were captured by the IRGC, please try again!')
+
     }
 }
+
+
 
 animate()
 
@@ -200,7 +208,7 @@ document.addEventListener('keyup', (event) => {
             break
         case 'w':
             console.log('up')
-            mahsa.velocity.y -= 20
+            mahsa.velocity.y -= 5
             break
         case 'ArrowLeft':
             console.log('left')
@@ -215,7 +223,7 @@ document.addEventListener('keyup', (event) => {
             break
         case 'ArrowUp':
             console.log('up')
-            mahsa.velocity.y -= 20
+            mahsa.velocity.y -= 5
             break
     }
 })
