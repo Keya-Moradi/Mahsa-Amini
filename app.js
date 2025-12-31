@@ -28,26 +28,29 @@ class Player {
             x: 0,
             y: 0
         }
-        this.width = 66
-        this.height = 150
+        this.width = 80
+        this.height = 100
         this.image = spriteStandRight
         this.frames = 0
         this.sprites = {
             stand: {
                 right: spriteStandRight,
                 left: spriteStandLeft,
-                cropWidth: 177,
-                width: 66
+                cropWidth: 641,
+                width: 80,
+                maxFrames: 9
             },
             run: {
                 right: spriteRunRight,
                 left: spriteRunLeft,
-                cropWidth: 341,
-                width: 127.875
+                cropWidth: 641,
+                width: 80,
+                maxFrames: 7
             }
         }
         this.currentSprite = this.sprites.stand.right
-        this.currentCropWidth = 177
+        this.currentCropWidth = 641
+        this.maxFrames = 9
     }
 
     draw() {
@@ -56,7 +59,7 @@ class Player {
             this.currentCropWidth * this.frames,
             0,
             this.currentCropWidth,
-            400,
+            542,
             this.position.x,
             this.position.y,
             this.width,
@@ -66,9 +69,7 @@ class Player {
 
     update() {
         this.frames++
-        if (this.frames > 59 && (this.currentSprite === this.sprites.stand.right || this.currentSprite === this.sprites.stand.left)) {
-            this.frames = 0
-        } else if (this.frames > 29 && (this.currentSprite === this.sprites.run.right || this.currentSprite === this.sprites.run.left)) {
+        if (this.frames > this.maxFrames) {
             this.frames = 0
         }
 
@@ -207,25 +208,29 @@ function animate() {
 
     // Sprite switching
     if (keys.right.pressed && mahsa.currentSprite !== mahsa.sprites.run.right) {
-        mahsa.frames = 1
+        mahsa.frames = 0
         mahsa.currentSprite = mahsa.sprites.run.right
         mahsa.currentCropWidth = mahsa.sprites.run.cropWidth
         mahsa.width = mahsa.sprites.run.width
+        mahsa.maxFrames = mahsa.sprites.run.maxFrames
     } else if (keys.left.pressed && mahsa.currentSprite !== mahsa.sprites.run.left) {
-        mahsa.frames = 1
+        mahsa.frames = 0
         mahsa.currentSprite = mahsa.sprites.run.left
         mahsa.currentCropWidth = mahsa.sprites.run.cropWidth
         mahsa.width = mahsa.sprites.run.width
+        mahsa.maxFrames = mahsa.sprites.run.maxFrames
     } else if (!keys.left.pressed && mahsa.currentSprite === mahsa.sprites.run.left) {
-        mahsa.frames = 1
+        mahsa.frames = 0
         mahsa.currentSprite = mahsa.sprites.stand.left
         mahsa.currentCropWidth = mahsa.sprites.stand.cropWidth
         mahsa.width = mahsa.sprites.stand.width
+        mahsa.maxFrames = mahsa.sprites.stand.maxFrames
     } else if (!keys.right.pressed && mahsa.currentSprite === mahsa.sprites.run.right) {
-        mahsa.frames = 1
+        mahsa.frames = 0
         mahsa.currentSprite = mahsa.sprites.stand.right
         mahsa.currentCropWidth = mahsa.sprites.stand.cropWidth
         mahsa.width = mahsa.sprites.stand.width
+        mahsa.maxFrames = mahsa.sprites.stand.maxFrames
     }
 
     // Win condition
