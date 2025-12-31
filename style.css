@@ -1,16 +1,73 @@
+* {
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
+    padding: 0;
     background-color: rgb(153, 59, 240);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;
-    align-content: space-around;
+    min-height: 100vh;
+    font-family: 'Press Start 2P', cursive;
+    overflow: hidden;
 }
 
 h1 {
     text-align: center;
-    font-size: 50px;
-    margin: 100px 0px 0px 0px;
+    font-size: 2.5rem;
+    margin: 1rem 0;
+    color: white;
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+}
+
+.instructions {
+    text-align: center;
+    color: white;
+    font-size: 0.75rem;
+    margin: 0.5rem 0;
+    padding: 0.5rem;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+}
+
+.instructions p {
+    margin: 0.25rem 0;
+}
+
+canvas {
+    border: 3px solid white;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+    max-width: 95vw;
+    max-height: 70vh;
+}
+
+/* Responsive design for mobile */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 1.5rem;
+        margin: 0.5rem 0;
+    }
+
+    .instructions {
+        font-size: 0.5rem;
+        padding: 0.25rem;
+    }
+
+    canvas {
+        max-width: 98vw;
+        max-height: 60vh;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1rem;
+    }
+
+    .instructions {
+        font-size: 0.4rem;
+    }
 }
